@@ -13,49 +13,17 @@ class ProductController extends Zend_Controller_Action
      */
     public function indexAction ()
     {
-        // TODO Auto-generated ProductController::indexAction() default action
-        $c = $this->startTopService();
+        $authNamespace = new Zend_Session_Namespace('Ecmpc_Auth');
+        $sessionKey = $authNamespace->topSession;
         
-        //$this->test($c, '6000278296');
-        //http://item.taobao.com/item.htm?id=4697747146
-        $this->test($c, '4697747146');
-		exit;
+        
+        $product = new Ecmpc_Model_Product();
+        $resp = $product->itemInventoryGet($sessionKey);
+        
+        header('Content-Type: text/xml');
+        echo $resp;
+        exit;
     }
-    
-	private function startTopService()
-	{
-			include 'TopSdk.php';
-			$c = new TopClient ();
-			$c->appkey = Ecmpc_Model_Authentication::getAuthEndpoint()->appKey;
-			$c->secretKey = Ecmpc_Model_Authentication::getAuthEndpoint()->appSecret;
-			$c->gatewayUrl = Ecmpc_Model_Authentication::getAuthEndpoint()->router;
-
-			return $c;
-	}
-	
-	public function test($c ,$productIid)
-	{
-		$authNamespace = new Zend_Session_Namespace('Ecmpc_Auth');
-		var_dump($authNamespace->topSession);
-
-		
-		
-//		$req = new ItemGetRequest ();
-//			$req->setFields ( "detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,de-list_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual" );
-//			$req->setNumIid ( $productIid );
-////			var_dump($authNamespace->nick);exit;
-////$authNamespace->topSession
-//			$result = $c->execute ( $req )->saveXML();
-//			var_dump($result);
-
-
-	$req = new ItemsGetRequest;
-	$req->setFields("num_iid,title,nick,pic_url,cid,price,type,delist_time,post_fee,score,volume");
-	$req->setQ("phone");
-	$result = $c->execute ( $req )->saveXML();
-	var_dump(html_entity_decode($result));
-
-	}
 	
     public function autoOptimizationAction()
     {
