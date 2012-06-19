@@ -64,7 +64,7 @@ class UserController extends Zend_Controller_Action
 		$user = new Ecmpc_Model_User();
 		$user->saveUserSignIn($authNamespace);
 		
-		//TODO: 如果需要跳转回用户指定页面  
+		//TODO: 如果需要跳转回用户指定页面
 		$this->_redirect('/');
 	}
 	
