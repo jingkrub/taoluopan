@@ -2,60 +2,24 @@
 class Ecmpc_Model_Authentication
 {
 	private static $instance = null;
+	private static $endPointOptions = null;
+	private static $authNamespace = null;
 	
-	private static $taobaoAuthEndpoint = null;
+	/**
+	 * 
+	 * @var Ecmpc_Model_User
+	 */
+	private static $user = null;
 	
 	private function __construct()
     {
-    	$options = Zend_Registry::get('config');
-        
-        self::$taobaoAuthEndpoint->router = $options->taobao->api->router->url;
-        self::$taobaoAuthEndpoint->oauth = $options->taobao->api->oauth->url;
-        self::$taobaoAuthEndpoint->appKey = $options->taobao->api->appKey;
-        self::$taobaoAuthEndpoint->appSecret = $options->taobao->api->appSecret;
-        self::$taobaoAuthEndpoint->container = $options->taobao->api->container->url;
-        self::$taobaoAuthEndpoint->oauthToken = $options->taobao->api->oauth->token->url;
-        self::$taobaoAuthEndpoint->authMethod = $options->taobao->api->auth->method;
+    	self::$endPointOptions = Ecmpc_Model_Top_Endpoint::getEndpointOptions();
+        self::$authNamespace = new Zend_Session_Namespace('Ecmpc_Auth');
+        self::$user = new Ecmpc_Model_User();
 
     } 
     
-    static public function getAuthenticationUri ()
-    {
-    	self::getInstance();
-    	if (self::$taobaoAuthEndpoint->authMethod == "oauth"){
-    		return self::getOauthUri();
-    	} else {
-    		return self::getContainerUri();
-    	}
-    }
-    
-    private function getOauthUri()
-    {
-    	$options = Zend_Registry::get('config');
-    	$params = array(
-    		'response_type' => 'code',
-    		'client_id' => self::$taobaoAuthEndpoint->appKey,
-    		'redirect_uri' => '',
-    	);
-    	$uri = $options->baseHttp . '/user/sign-in-callback/';
-    	return self::$taobaoAuthEndpoint->oauth . '?' .http_build_query($params).$uri;
-    	
-    }
-    
-    private function getContainerUri() {
-    	return self::$taobaoAuthEndpoint->container . self::$taobaoAuthEndpoint->appKey . '&encode=utf-8';
-    	//http://container.api.tbsandbox.com/container?appkey=1012384059&ref=/taobao.items.inventory.get.php
-    }
-    
-    
-
-    static public function getAuthEndpoint()
-    {
-    	self::getInstance();
-    	return self::$taobaoAuthEndpoint;
-    }
-    
-	static public function getInstance() {
+	static private function getInstance() {
 		if (null === self::$instance ) {
 			 self::$instance = new Ecmpc_Model_Authentication();
 		}
@@ -63,17 +27,11 @@ class Ecmpc_Model_Authentication
 		return self::$instance;
 	}
 	
-	static function getAppSecret()
-	{
-		self::getInstance();
-		return self::$taobaoAuthEndpoint->appSecret;
-	}
-	
 	static public function validCallback( $topSign , $topParameters , $topSession )
 	{
 		self::getInstance();
 		
-		$md5 = md5(  self::$taobaoAuthEndpoint->appKey. $topParameters . $topSession . self::$taobaoAuthEndpoint->appSecret , true ); 
+		$md5 = md5(  self::$endPointOptions->appKey. $topParameters . $topSession . self::$endPointOptions->appSecret , true ); 
 		$sign = base64_encode( $md5 );
 		
 		if ( $sign != $topSign ) { 
@@ -88,7 +46,52 @@ class Ecmpc_Model_Authentication
 			throw new Exception('Login Error: request out of date.');
 		}
 		
-		return $parameters;
+		return self::setUser($parameters);
+		
+	}
+	
+	static public function getUser()
+	{
+	    self::getInstance();
+	    if ( null != self::$user &&  null != self::$user->getId() )
+	    return self::$user;
+	    else 
+	        throw new Exception('User Session Expired.');
+	}
+	
+	static private function setUser($params)
+	{
+	    self::getInstance();
+	    $userData = array(
+	            'userId' => $params['visitor_id'],
+	            'name' => $params['visitor_nick'],
+	            'sessionKey' => $params['refresh_token'],
+	            'expiresTime' => $params['expires_in'],
+	            'reExpiresTime' => $params['re_expires_in'],
+	            'signInTimestamp' => date('Y-m-d H:i:s', $params['ts']/1000),
+	            );
+	    self::$user->setOptions($userData);
+	    self::$user = self::$user->save();
+	    
+	    self::$authNamespace->user = self::$user;	
+	    self::$authNamespace->setExpirationSeconds(self::$user->getExpiresTime());
+	}
+	
+	static public function valid()
+	{
+	    self::getInstance();
+	    if  ( isset( self::$authNamespace->user ) == true && null != self::$authNamespace->user->getId() ) {
+	        self::$user = self::$authNamespace->user;
+	    	return true;
+	    } else {
+	        return false;
+	    }
+	}
+	
+	static public function getAuthSessionKey()
+	{
+	    self::valid();
+	    return self::$user;
 	}
 	
 }
