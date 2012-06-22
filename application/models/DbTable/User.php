@@ -1,6 +1,6 @@
 <?php
 /**
- * UserModel
+ * Ecmpc_Model_DbTable_User
  * 
  * @author Yuan
  * @version 
@@ -13,34 +13,34 @@ class Ecmpc_Model_DbTable_User extends Zend_Db_Table_Abstract
      */
     protected $_name = 'user';
     
-    public function sqlInsert( $userId , $userName , $userSessionKey , $expireTime, $reExpireTime , $timestamp)
+    public function sqlSave(Ecmpc_Model_User $user)
     {
-		$data = array(
-			'user_id' => $userId, 
-			'name' => $userName , 
-			'session_key' => $userSessionKey , 
-			'expire_time' => $expireTime , 
-			're_expire_time' => $reExpireTime,
-			'signin_timestamp' => $timestamp,
-		);
-		$this->insert($data);
+        $data = array(
+                'user_id' => $user->getUserId(),
+                'name' => $user->getName(),
+                'session_key' => $user->getSessionKey(),
+                'expire_time' => $user->getExpiresTime(),
+                're_expire_time' => $user->getReExpiresTime(),
+                'signin_timestamp' => $user->getSignInTimestamp(),
+        );
+    
+    	if (null == $this->sqlHasUser( $user->getUserId() ) )
+    	{
+    		return $this->insert($data);
+    	}
+    	else
+    	{
+    		return $this->update($data, array('user_id = ?' => $user->getUserId() ) );
+    	}
+    
     }
     
-    public function sqlGetUser($userId)
+    public function sqlHasUser($userId)
     {
     	$where = $this->select()->where('user_id = ?' , $userId);
-		return $this->fetchRow($where);
+    	$rst = $this->fetchRow($where);
+    	return ($rst == null) ? false : true;
     }
     
-    public function sqlUpdate($userId , $userName , $userSessionKey , $expireTime, $reExpireTime , $timestamp) 
-    {
-    	$data = array( 
-			'name' => $userName , 
-			'session_key' => $userSessionKey , 
-			'expire_time' => $expireTime , 
-			're_expire_time' => $reExpireTime,
-			'signin_timestamp' => $timestamp,
-		);
-		$this->update($data, 'user_id = '.$userId);
-    }
+
 }
