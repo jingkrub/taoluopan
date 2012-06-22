@@ -30,7 +30,7 @@ class UserController extends Zend_Controller_Action
     
     public function signInAction() {
     	
-    	$authenticationUri = Ecmpc_Model_Authentication::getAuthenticationUri();
+    	$authenticationUri = Ecmpc_Model_Top_Endpoint::getAuthenticationUri();
 		header("Location: $authenticationUri");
     	exit;
     }
@@ -47,25 +47,13 @@ class UserController extends Zend_Controller_Action
 		$topSign = $this->_getParam('top_sign');
 		
 		try {
-			$params = Ecmpc_Model_Authentication::validCallback($topSign, $topParameters, $topSession);
+			$user = Ecmpc_Model_Authentication::validCallback($topSign, $topParameters, $topSession);
 		} catch (Exception $e) {
-			$this->_redirect('/user/index/error/'.urlencode($e->getMessage()).'/');
+			$this->_redirect('/user/index/error/'.urlencode($e->getMessage()) );
 		}
-		
-		$authNamespace = new Zend_Session_Namespace('Ecmpc_Auth');
-		$authNamespace->topSession = $params['refresh_token'];
-		$authNamespace->userId = $params['visitor_id'];
-		$authNamespace->nick = $params['visitor_nick'];
-		$authNamespace->expiresIn = $params['expires_in'];
-		$authNamespace->reExpiresIn = $params['re_expires_in'];
-		$authNamespace->timestamp = $params['ts'];
-		
-		//login save session into db
-		$user = new Ecmpc_Model_User();
-		$user->saveUserSignIn($authNamespace);
-		
+				
 		//TODO: 如果需要跳转回用户指定页面
-		$this->_redirect('/');
+		$this->_helper->redirector('index' , 'index');
 	}
 	
 	public function signOutAction()
@@ -73,7 +61,7 @@ class UserController extends Zend_Controller_Action
 //	    $ref = $_REQUEST['ref'];
 		$authNamespace = new Zend_Session_Namespace('Ecmpc_Auth');
 		$authNamespace->unsetAll();
-		$this->_redirect($this->baseHttp);
+		$this->_helper->redirector('index' , 'index');
 	}
 	
 }
