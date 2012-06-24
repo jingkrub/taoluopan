@@ -1,5 +1,5 @@
 <?php
-class Ecmpc_Model_User
+class Navo_Model_User
 {    
 	private $_id = null;
 	private $_userId;
@@ -10,13 +10,13 @@ class Ecmpc_Model_User
 	private $_signInTimestamp;
 	
 	/**
-	 * @var Ecmpc_Model_DbTable_User
+	 * @var Navo_Model_DbTable_User
 	 */
 	private $user;
 	
 	public function __construct(array $options = null)
 	{
-	    $this->user = new Ecmpc_Model_DbTable_User();
+	    $this->user = new Navo_Model_DbTable_User();
 		if (is_array($options)) {
 			$this->setOptions($options);
 		}

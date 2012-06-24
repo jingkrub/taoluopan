@@ -1,5 +1,5 @@
 <?php
-class Ecmpc_Model_SlotContainer
+class Navo_Model_SlotContainer
 {
 //     /**
 //      * @var Array
@@ -26,7 +26,7 @@ class Ecmpc_Model_SlotContainer
 //         $this->_container = array_fill(0, 168, null);		//填充一个168位的空数组
         
         $this->_date = new Zend_Date();
-        $this->_weightTable = Ecmpc_Model_Weight::getWeights();
+        $this->_weightTable = Navo_Model_Weight::getWeights();
         $itemWeight = $this->setItemWeight($itemCount);
         $this->resetWeightByItem( $itemWeight );
         $this->_itemArray = array();

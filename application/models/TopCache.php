@@ -1,5 +1,5 @@
 <?php
-class Ecmpc_Model_TopCache
+class Navo_Model_TopCache
 {
 	private $_cache;
 	

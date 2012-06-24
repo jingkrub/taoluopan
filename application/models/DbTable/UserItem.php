@@ -1,12 +1,12 @@
 <?php
 /**
- * Ecmpc_Model_DbTable_UserItem
+ * Navo_Model_DbTable_UserItem
  * 
  * @author Yuan
  * @version 
  */
 require_once 'Zend/Db/Table/Abstract.php';
-class Ecmpc_Model_DbTable_UserItem extends Zend_Db_Table_Abstract
+class Navo_Model_DbTable_UserItem extends Zend_Db_Table_Abstract
 {
     /**
      * The default table name 
@@ -55,7 +55,7 @@ class Ecmpc_Model_DbTable_UserItem extends Zend_Db_Table_Abstract
         $orgItemArray = $this->sqlGetAllItemByUser($userId);
         $diffResultSet = array_diff($orgItemArray, $userItemArray);
         
-        $item = new Ecmpc_Model_DbTable_Item();
+        $item = new Navo_Model_DbTable_Item();
         foreach ($diffResultSet as $itemId) {
         	$this->delete(array('user_id = ?' => $userId, 'item_id = ?'=> $itemId));
         	$item->delete(array('item_id = ?' => $itemId) );

@@ -30,7 +30,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 // 	protected function _initAutoload()
 // 	{
 // 		$moduleLoader = new Zend_Application_Module_Autoloader(array(
-// 			'namespace' => 'Ecmpc',
+// 			'namespace' => 'Navo',
 // 			'basePath' => APPLICATION_PATH));
 // 		//$moduleLoader->addResourceType('Validator' , 'Validator' , 'Validator');
 // 		return $moduleLoader;

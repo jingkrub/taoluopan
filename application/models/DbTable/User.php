@@ -1,19 +1,19 @@
 <?php
 /**
- * Ecmpc_Model_DbTable_User
+ * Navo_Model_DbTable_User
  * 
  * @author Yuan
  * @version 
  */
 require_once 'Zend/Db/Table/Abstract.php';
-class Ecmpc_Model_DbTable_User extends Zend_Db_Table_Abstract
+class Navo_Model_DbTable_User extends Zend_Db_Table_Abstract
 {
     /**
      * The default table name 
      */
     protected $_name = 'user';
     
-    public function sqlSave(Ecmpc_Model_User $user)
+    public function sqlSave(Navo_Model_User $user)
     {
         $data = array(
                 'user_id' => $user->getUserId(),

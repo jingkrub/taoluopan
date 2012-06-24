@@ -1,12 +1,12 @@
 <?php
 /**
- * Ecmpc_Model_DbTable_Item
+ * Navo_Model_DbTable_Item
  * 
  * @author Yuan
  * @version 
  */
 require_once 'Zend/Db/Table/Abstract.php';
-class Ecmpc_Model_DbTable_Item extends Zend_Db_Table_Abstract
+class Navo_Model_DbTable_Item extends Zend_Db_Table_Abstract
 {
     /**
      * The default table name 
@@ -15,9 +15,9 @@ class Ecmpc_Model_DbTable_Item extends Zend_Db_Table_Abstract
     
     public function sqlSave(SimpleXMLElement $item)
     {
-        $data = array(); // $data 内容参见 Ecmpc_Model_Item::getKeys()
+        $data = array(); // $data 内容参见 Navo_Model_Item::getKeys()
         
-		foreach (Ecmpc_Model_Item::getKeys() as $key) {
+		foreach (Navo_Model_Item::getKeys() as $key) {
 			$data[$key] = (string)$item->$key;
 		} 
 		
@@ -43,7 +43,7 @@ class Ecmpc_Model_DbTable_Item extends Zend_Db_Table_Abstract
     
     public function sqlGetAllItemByUser($userId)
     {
-        $item = new Ecmpc_Model_DbTable_UserItem();
+        $item = new Navo_Model_DbTable_UserItem();
         $itemIdArray = $item->sqlGetAllItemByUser($userId);
         
         $where = $this->select()->where('item_id IN (?)', $itemIdArray)->order('volume DESC');

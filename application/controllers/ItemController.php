@@ -14,7 +14,7 @@ class ItemController extends Zend_Controller_Action
     
     public function init()
     {
-        if (false == Ecmpc_Model_Authentication::valid() )
+        if (false == Navo_Model_Authentication::valid() )
         {
             $this->_helper->redirector('index' , 'user');
         }
@@ -32,9 +32,9 @@ class ItemController extends Zend_Controller_Action
         
         //TODO: 不知道有没有子账号登录，现在每一个item绑定到一个用户上，如果刷新，用户废弃的item将被删除。
                 
-        $user = Ecmpc_Model_Authentication::getUser();
+        $user = Navo_Model_Authentication::getUser();
         
-        $itemTop = new Ecmpc_Model_Top_Item();
+        $itemTop = new Navo_Model_Top_Item();
         
         $respInventory = $itemTop->itemInventoryGet($user->getSessionKey());
         $itemInventoryXml = simplexml_load_string($respInventory);
@@ -44,8 +44,8 @@ class ItemController extends Zend_Controller_Action
         
         $userItemArray = array();
         
-        $item = new Ecmpc_Model_DbTable_Item();
-        $userItem = new Ecmpc_Model_DbTable_UserItem();
+        $item = new Navo_Model_DbTable_Item();
+        $userItem = new Navo_Model_DbTable_UserItem();
         
         $db = $item->getDefaultAdapter();
         $db->beginTransaction();

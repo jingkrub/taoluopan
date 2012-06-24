@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Ecmpc_Model_UserItem
+ * Navo_Model_UserItem
  *  
  * @author Yuan
  * @version 
  */
 
-class Ecmpc_Model_UserItem 
+class Navo_Model_UserItem 
 {
     
 

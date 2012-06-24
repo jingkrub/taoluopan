@@ -1,5 +1,5 @@
 <?php
-class Ecmpc_Model_Authentication
+class Navo_Model_Authentication
 {
 	private static $instance = null;
 	private static $endPointOptions = null;
@@ -7,21 +7,21 @@ class Ecmpc_Model_Authentication
 	
 	/**
 	 * 
-	 * @var Ecmpc_Model_User
+	 * @var Navo_Model_User
 	 */
 	private static $user = null;
 	
 	private function __construct()
     {
-    	self::$endPointOptions = Ecmpc_Model_Top_Endpoint::getEndpointOptions();
-        self::$authNamespace = new Zend_Session_Namespace('Ecmpc_Auth');
-        self::$user = new Ecmpc_Model_User();
+    	self::$endPointOptions = Navo_Model_Top_Endpoint::getEndpointOptions();
+        self::$authNamespace = new Zend_Session_Namespace('Navo_Auth');
+        self::$user = new Navo_Model_User();
 
     } 
     
 	static private function getInstance() {
 		if (null === self::$instance ) {
-			 self::$instance = new Ecmpc_Model_Authentication();
+			 self::$instance = new Navo_Model_Authentication();
 		}
 		
 		return self::$instance;

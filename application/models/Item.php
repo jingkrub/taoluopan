@@ -1,8 +1,8 @@
 <?php
-class Ecmpc_Model_Item
+class Navo_Model_Item
 {
     /**
-     * @var Ecmpc_Model_DbTable_Item
+     * @var Navo_Model_DbTable_Item
      */
     
     static public function getKeys() 

@@ -1,5 +1,5 @@
 <?php
-class Ecmpc_Model_Top_Endpoint
+class Navo_Model_Top_Endpoint
 {
 	private static $instance = null;
 	
@@ -27,7 +27,7 @@ class Ecmpc_Model_Top_Endpoint
     
 	static private function getInstance() {
 		if (null === self::$instance ) {
-			 self::$instance = new Ecmpc_Model_Top_Endpoint();
+			 self::$instance = new Navo_Model_Top_Endpoint();
 		}
 		
 		return self::$instance;

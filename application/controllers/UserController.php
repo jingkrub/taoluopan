@@ -30,7 +30,7 @@ class UserController extends Zend_Controller_Action
     
     public function signInAction() {
     	
-    	$authenticationUri = Ecmpc_Model_Top_Endpoint::getAuthenticationUri();
+    	$authenticationUri = Navo_Model_Top_Endpoint::getAuthenticationUri();
 		header("Location: $authenticationUri");
     	exit;
     }
@@ -47,7 +47,7 @@ class UserController extends Zend_Controller_Action
 		$topSign = $this->_getParam('top_sign');
 		
 		try {
-			$user = Ecmpc_Model_Authentication::validCallback($topSign, $topParameters, $topSession);
+			$user = Navo_Model_Authentication::validCallback($topSign, $topParameters, $topSession);
 		} catch (Exception $e) {
 			$this->_redirect('/user/index/error/'.urlencode($e->getMessage()) );
 		}
@@ -59,7 +59,7 @@ class UserController extends Zend_Controller_Action
 	public function signOutAction()
 	{
 //	    $ref = $_REQUEST['ref'];
-		$authNamespace = new Zend_Session_Namespace('Ecmpc_Auth');
+		$authNamespace = new Zend_Session_Namespace('Navo_Auth');
 		$authNamespace->unsetAll();
 		$this->_helper->redirector('index' , 'index');
 	}

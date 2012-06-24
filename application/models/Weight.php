@@ -1,5 +1,5 @@
 <?php
-class Ecmpc_Model_Weight
+class Navo_Model_Weight
 {
     static public function getWeights()
     {
