@@ -22,6 +22,15 @@ class Navo_Model_DbTable_User extends Zend_Db_Table_Abstract
                 'expire_time' => $user->getExpiresTime(),
                 're_expire_time' => $user->getReExpiresTime(),
                 'signin_timestamp' => $user->getSignInTimestamp(),
+                
+                'sex' => $user->getSex(),
+                'last_visit' => $user->getLastVisit(),
+                'type' => $user->getType(),
+                'avatar' => $user->getAvatar(),
+                'has_shop' => $user->getHasShop(),
+                'is_lightning_consignment' => $user->getIsLightningConsignment(),
+                'is_golden_seller' => $user->getIsGoldenSeller(),
+                'vip_info' => $user->getVipInfo(),
         );
     
     	if (null == $this->sqlHasUser( $user->getUserId() ) )
@@ -41,6 +50,5 @@ class Navo_Model_DbTable_User extends Zend_Db_Table_Abstract
     	$rst = $this->fetchRow($where);
     	return ($rst == null) ? false : true;
     }
-    
 
 }
