@@ -36,11 +36,8 @@ class ItemController extends Zend_Controller_Action
         
         $itemTop = new Navo_Model_Top_Item();
         
-        $respInventory = $itemTop->itemInventoryGet($user->getSessionKey());
-        $itemInventoryXml = simplexml_load_string($respInventory);
-        
-        $respOnSale = $itemTop->itemOnsaleGet($user->getSessionKey());
-        $itemOnsaleXml = simplexml_load_string($respOnSale);
+        $respInventoryXml = $itemTop->itemInventoryGet($user->getSessionKey());
+        $respOnSaleXml = $itemTop->itemOnsaleGet($user->getSessionKey());
         
         $userItemArray = array();
         
