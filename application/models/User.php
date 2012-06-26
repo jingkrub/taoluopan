@@ -1,138 +1,94 @@
 <?php
-class Navo_Model_User
+class Navo_Model_User extends Navo_Model_UserAuth
 {    
-	private $_id = null;
-	private $_userId;
-	private $_name;
-	private $_sessionKey;
-	private $_expiresTime;
-	private $_reExpiresTime;
-	private $_signInTimestamp;
+	protected $_sex;
+	protected $_last_visit;
+	protected $_type;
+	protected $_avatar;
+	protected $_has_shop;
+	protected $_is_lightning_consignment;
+	protected $_is_golden_seller;
+	protected $_vip_info;
 	
-	/**
-	 * @var Navo_Model_DbTable_User
-	 */
-	private $user;
-	
-	public function __construct(array $options = null)
+	public function setSex($sex)
 	{
-	    $this->user = new Navo_Model_DbTable_User();
-		if (is_array($options)) {
-			$this->setOptions($options);
-		}
+	    $this->_sex = $sex;
+	}
+	public function getSex()
+	{
+	    return $this->_sex;
 	}
 	
-	public function __set($name, $value)
+	public function setLastVisit($lastVisit)
 	{
-		$method = 'set' . $name;
-		if (('mapper' == $name) || !method_exists($this, $method)) {
-			throw new Exception('Invalid user property: '.$name);
-		}
-		$this->$method($value);
+	    $this->_last_visit = $lastVisit;
 	}
 	
-	public function __get($name)
+	public function getLastVisit()
 	{
-		$method = 'get' . $name;
-		if (('mapper' == $name) || !method_exists($this, $method)) {
-			throw new Exception('Invalid user property: '.$name);
-		}
-		return $this->$method();
+	    return $this->_last_visit;
 	}
 	
-	public function setOptions(array $options)
+	public function setType($type)
 	{
-		$methods = get_class_methods($this);
-		foreach ($options as $key => $value) {
-			$method = 'set' . ucfirst($key);
-			if (in_array($method, $methods)) {
-				$this->$method($value);
-			}
-		}
-		return $this;
+	    $this->_type = $type;
+	}
+	public function getType()
+	{
+	    return $this->_type;
 	}
 	
-	public function setId($id)
+	public function setAvatar($avatar)
 	{
-		$this->_id = (int) $id;
-		return $this;
+		$this->_avatar = $avatar;
+	}
+	public function getAvatar()
+	{
+		return $this->_avatar;
 	}
 	
-	public function getId()
+	public function setHasShop ($hasShop)
 	{
-		return $this->_id;
+		$this->_has_shop = $hasShop;
+	}
+	public function getHasShop ()
+	{
+		return $this->_has_shop;
 	}
 	
-	public function setUserId($userId)
+	public function setIsLightningConsignment ($isLightningConsignment)
 	{
-		$this->_userId = (string) $userId;
-		return $this;
+		$this->_is_lightning_consignment = $isLightningConsignment;
 	}
 	
-	public function getUserId()
+	public function getIsLightningConsignment ()
 	{
-		return $this->_userId;
+		return $this->_is_lightning_consignment;
 	}
 	
-	public function setName($name)
+	public function setIsGoldenSeller ($isGoldenSeller)
 	{
-	    $this->_name = (string) $name;
-	    return $this;
+		$this->_is_golden_seller = $isGoldenSeller;
+	}
+	public function getIsGoldenSeller ()
+	{
+		return $this->_is_golden_seller;
 	}
 	
-	public function getName()
+	public function setVipInfo ($vipInfo)
 	{
-		return $this->_name;
+		$this->_vip_info = $vipInfo;
 	}
 	
-	public function setSessionKey($sessionKey)
+	public function getVipInfo ()
 	{
-		$this->_sessionKey = (string) $sessionKey;
-		return $this;
-	}
-	
-	public function getSessionKey()
-	{
-		return $this->_sessionKey;
-	}
-	
-	public function setExpiresTime($expiresTime)
-	{
-		$this->_expiresTime = (string) $expiresTime;
-		return $this;
-	}
-	
-	public function getExpiresTime()
-	{
-		return $this->_expiresTime;
-	}
-	
-	public function setReExpiresTime($reExpiresTime)
-	{
-		$this->_reExpiresTime = (string) $reExpiresTime;
-		return $this;
-	}
-	
-	public function getReExpiresTime()
-	{
-		return $this->_reExpiresTime;
-	}
-	
-	public function setSignInTimestamp($signInTimestamp)
-	{
-		$this->_signInTimestamp = (string) $signInTimestamp;
-		return $this;
-	}
-	
-	public function getSignInTimestamp()
-	{
-		return $this->_signInTimestamp;
+		return $this->_vip_info;
 	}
 	
 	public function save()
 	{
-	    $id = $this->user->sqlSave($this);
-	    $this->setId($id);
-	    return $this;
+		$id = $this->user->sqlSave($this);
+		$this->setId($id);
+		return $this;
 	}
 }
