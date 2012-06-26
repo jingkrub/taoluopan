@@ -6,7 +6,6 @@ class Navo_Model_Authentication
 	private static $authNamespace = null;
 	
 	/**
-	 * 
 	 * @var Navo_Model_User
 	 */
 	private static $user = null;
@@ -62,14 +61,28 @@ class Navo_Model_Authentication
 	static private function setUser($params)
 	{
 	    self::getInstance();
+ 
+	    $userTop = new Navo_Model_Top_User();
+	    $userInfoXml = $userTop->userGet($params['visitor_nick'] , $params['visitor_id']);
+	    
 	    $userData = array(
-	            'userId' => $params['visitor_id'],
-	            'name' => $params['visitor_nick'],
-	            'sessionKey' => $params['refresh_token'],
-	            'expiresTime' => $params['expires_in'],
-	            'reExpiresTime' => $params['re_expires_in'],
-	            'signInTimestamp' => date('Y-m-d H:i:s', $params['ts']/1000),
-	            );
+	    		'userId' => $params['visitor_id'],
+	    		'name' => $params['visitor_nick'],
+	    		'sessionKey' => $params['refresh_token'],
+	    		'expiresTime' => $params['expires_in'],
+	    		'reExpiresTime' => $params['re_expires_in'],
+	    		'signInTimestamp' => date('Y-m-d H:i:s', $params['ts']/1000),
+	            
+	            'sex' => (string) $userInfoXml->sex,
+	            'lastVisit' => (string) $userInfoXml->last_visit,
+	            'type' => (string) $userInfoXml->type,
+	            'avatar' => (string) $userInfoXml->avatar,
+	            'hasShop' => (string) $userInfoXml->has_shop,
+	            'isLightningConsignment' => (string) $userInfoXml->is_lightning_consignment,
+	            'isGoldenSeller' => (string) $userInfoXml->is_golden_seller,
+	            'vip_info' => (string) $userInfoXml->vip_info,
+	    );
+	    
 	    self::$user->setOptions($userData);
 	    self::$user = self::$user->save();
 	    
@@ -86,12 +99,6 @@ class Navo_Model_Authentication
 	    } else {
 	        return false;
 	    }
-	}
-	
-	static public function getAuthSessionKey()
-	{
-	    self::valid();
-	    return self::$user;
 	}
 	
 }
