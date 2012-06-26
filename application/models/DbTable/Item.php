@@ -15,9 +15,9 @@ class Navo_Model_DbTable_Item extends Zend_Db_Table_Abstract
     
     public function sqlSave(SimpleXMLElement $item)
     {
-        $data = array(); // $data 内容参见 Navo_Model_Item::getKeys()
+        $data = array(); // $data 内容参见 Navo_Model_Top_Item::getKeys()
         
-		foreach (Navo_Model_Item::getKeys() as $key) {
+		foreach (Navo_Model_Top_Item::getKeys() as $key) {
 			$data[$key] = (string)$item->$key;
 		} 
 		
