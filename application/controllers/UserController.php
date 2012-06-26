@@ -11,7 +11,6 @@ class UserController extends Zend_Controller_Action
 	var $baseHttp = null;
 	
 	public function init(){
-		echo '<pre>';
 		$options = Zend_Registry::get('config');
 		$this->baseHttp = $options->baseHttp;
 	}
@@ -31,7 +30,7 @@ class UserController extends Zend_Controller_Action
     public function signInAction() {
     	
     	$authenticationUri = Navo_Model_Top_Endpoint::getAuthenticationUri();
-		header("Location: $authenticationUri");
+		$this->_redirect($authenticationUri);
     	exit;
     }
     
