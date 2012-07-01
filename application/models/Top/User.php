@@ -2,11 +2,9 @@
 class Navo_Model_Top_User
 {
     private $c;
-    private $item;
     
     public function __construct() {
         $this->c = Navo_Model_Top_Endpoint::getEndpoint();
-//         $this->item = new Navo_Model_DbTable_Item();
     }
     
 	static public function getKeys()
@@ -32,17 +30,14 @@ class Navo_Model_Top_User
     
     public function userGet($userNick , $userId)
     {
-//         $key = 'itemInventoryGet'.$sessionKey;
-        
-//         $cache = new Navo_Model_TopCache();
-//         $resp = $cache->loadFromCache($key);
-        
-//         if ($resp == false)
-//         {
-            $resp = $this->_userGet($userNick);
-//             $cache->saveToCache($resp, $key);
-//         }
+        $resp = $this->_userGet($userNick);
         $respXml = simplexml_load_string($resp);
+        
+        if (true == isset( $respXml->code ) ) {
+            //TODO: Add Zend_Logger
+        	throw new Exception('From: '.get_class($this).' Top code: "'.$respXml->code .'" Msg: '.$respXml->msg);
+        }
+        
         if (true == isset($respXml->user->user_id) && (string)$respXml->user->user_id == $userId )
         {
             return $respXml->user;
@@ -56,7 +51,6 @@ class Navo_Model_Top_User
     {        
         $req = new UserGetRequest();
         $req->setFields(join(",", self::getKeys()));
-        //$req->setFields("approve_status,num_iid,title,nick,type,cid,volume,pic_url,num,props,valid_thru,list_time,price,has_discount,has_invoice,has_warranty,has_showcase,modified,delist_time,postage_id,seller_cids,outer_id");
 		$req->setNick($userNick);
         return $this->c->execute($req)->saveXML();
     }
