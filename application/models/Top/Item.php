@@ -81,7 +81,7 @@ class Navo_Model_Top_Item
     {
         $key = 'itemInventoryGet'.$sessionKey;
         
-        $cache = new Navo_Model_TopCache();
+        $cache = new Navo_Service_TopCache();
         $resp = $cache->loadFromCache($key);
         
         if ($resp == false)
@@ -106,7 +106,7 @@ class Navo_Model_Top_Item
     {
         $key = 'itemOnsaleGet'.$sessionKey;
         
-        $cache = new Navo_Model_TopCache();
+        $cache = new Navo_Service_TopCache();
         $resp = $cache->loadFromCache($key);
         
         if ($resp == false)
