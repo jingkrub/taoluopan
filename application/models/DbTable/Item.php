@@ -50,4 +50,10 @@ class Navo_Model_DbTable_Item extends Zend_Db_Table_Abstract
         return $this->fetchAll($where);
     }
     
+    public function sqlGetItem($numIid)
+    {
+        $where = $this->select()->where('num_iid = ?' , $numIid);
+        return $this->fetchRow($where);
+    }
+    
 }
