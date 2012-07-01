@@ -84,11 +84,4 @@ class Navo_Model_User extends Navo_Model_UserAuth
 	{
 		return $this->_vip_info;
 	}
-	
-	public function save()
-	{
-		$id = $this->user->sqlSave($this);
-		$this->setId($id);
-		return $this;
-	}
 }
