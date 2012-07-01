@@ -7,19 +7,41 @@ class Navo_Model_UserAuth
 	protected $_sessionKey;
 	protected $_expiresTime;
 	protected $_reExpiresTime;
-	protected $_signInTimestamp;
+	protected $_signinTimestamp;
 
 	/**
 	 * @var Navo_Model_DbTable_User
 	 */
 	protected $user;
 	
-	public function __construct(array $options = null)
+	public function __construct($userId = null , array $options = null)
 	{
 	    $this->user = new Navo_Model_DbTable_User();
+		if ($userId !== null && true == $this->user->sqlHasUser($userId))
+	    {
+	        $userDbRow = $this->user->sqlQueryUser($userId);
+	        $data = array();
+	        foreach ($userDbRow as $key => $value) {
+	        	$data[Navo_Service_NamingConvention::flatToCamel($key)] = $value;
+	        }
+	        if (count($data)>0)
+	        {
+	            $this->setOptions($data);
+	        }
+	    }
+// 	    var_dump($this);
+	    
+	    
 		if (is_array($options)) {
 			$this->setOptions($options);
 		}
+	}
+	
+	public function save()
+	{
+		$id = $this->user->sqlSave($this);
+		$this->setId($id);
+		return $this;
 	}
 	
 	public function __set($name, $value)
@@ -118,15 +140,15 @@ class Navo_Model_UserAuth
 		return $this->_reExpiresTime;
 	}
 	
-	public function setSignInTimestamp($signInTimestamp)
+	public function setSigninTimestamp($signinTimestamp)
 	{
-		$this->_signInTimestamp = (string) $signInTimestamp;
+		$this->_signinTimestamp = (string) $signinTimestamp;
 		return $this;
 	}
 	
-	public function getSignInTimestamp()
+	public function getSigninTimestamp()
 	{
-		return $this->_signInTimestamp;
+		return $this->_signinTimestamp;
 	}
 	
 }
