@@ -46,7 +46,7 @@ class UserController extends Zend_Controller_Action
 		$topSign = $this->_getParam('top_sign');
 		
 		try {
-			$user = Navo_Model_Authentication::validCallback($topSign, $topParameters, $topSession);
+			$user = Navo_Service_Authentication::validCallback($topSign, $topParameters, $topSession);
 		} catch (Exception $e) {
 			$this->_redirect('/user/index/error/'.urlencode($e->getMessage()) );
 		}
@@ -63,4 +63,48 @@ class UserController extends Zend_Controller_Action
 		$this->_helper->redirector('index' , 'index');
 	}
 	
+	public function statusAction()
+	{
+	    $user = $this->_getAuthUser();
+	    
+	    $userDb = new Navo_Model_DbTable_User();
+	    $is_actived = $userDb->sqlQueryActivedStatus($user);
+	    var_dump($is_actived);
+	    
+	    //TODO: 显示active 的开关。
+	    exit;
+	}
+	
+	public function activeAction()
+	{
+	    $user = $this->_getAuthUser();
+	    
+	    $userDb = new Navo_Model_DbTable_User();
+	    $userDb->sqlActiveUser($user);
+//		打开服务的时候 重新初始化任务队列。
+	    $this->_helper->redirector('status');
+	}
+	
+	public function deactiveAction()
+	{
+	    $user = $this->_getAuthUser();
+	    
+	    $userDb = new Navo_Model_DbTable_User();
+	    $userDb->sqlDeactiveUser($user);
+// 	    #15: 用户关掉服务的时候立即清除该用户的任务队列
+		$queueDb = new Navo_Model_DbTable_UpdateQueue();
+		$queueDb->sqlFlushByUser($user->getId());
+		
+	    $this->_helper->redirector('status');
+	}
+	
+	private function _getAuthUser()
+	{
+	    if (false == Navo_Service_Authentication::valid() )
+	    {
+	    	$this->_helper->redirector('index' , 'user');
+	    }
+	     
+	    return Navo_Service_Authentication::getUser();
+	}
 }
