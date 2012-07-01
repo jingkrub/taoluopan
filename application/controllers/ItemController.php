@@ -14,7 +14,7 @@ class ItemController extends Zend_Controller_Action
     
     public function init()
     {
-        if (false == Navo_Model_Authentication::valid() )
+        if (false == Navo_Service_Authentication::valid() )
         {
             $this->_helper->redirector('index' , 'user');
         }
@@ -32,7 +32,7 @@ class ItemController extends Zend_Controller_Action
         
         //TODO: 不知道有没有子账号登录，现在每一个item绑定到一个用户上，如果刷新，用户废弃的item将被删除。
                 
-        $user = Navo_Model_Authentication::getUser();
+        $user = Navo_Service_Authentication::getUser();
         
         $itemTop = new Navo_Model_Top_Item();
         
