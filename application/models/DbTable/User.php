@@ -19,8 +19,8 @@ class Navo_Model_DbTable_User extends Zend_Db_Table_Abstract
                 'user_id' => $user->getUserId(),
                 'name' => $user->getName(),
                 'session_key' => $user->getSessionKey(),
-                'expire_time' => $user->getExpiresTime(),
-                're_expire_time' => $user->getReExpiresTime(),
+                'expires_time' => $user->getExpiresTime(),
+                're_expires_time' => $user->getReExpiresTime(),
                 'signin_timestamp' => $user->getSignInTimestamp(),
                 
                 'sex' => $user->getSex(),
@@ -46,9 +46,32 @@ class Navo_Model_DbTable_User extends Zend_Db_Table_Abstract
     
     public function sqlHasUser($userId)
     {
-    	$where = $this->select()->where('user_id = ?' , $userId);
-    	$rst = $this->fetchRow($where);
+    	$rst = $this->sqlQueryUser($userId);
     	return ($rst == null) ? false : true;
+    }
+    
+    public function sqlActiveUser(Navo_Model_User $user)
+    {
+        $data = array('is_actived' => 1);
+        return $this->update($data, array('user_id = ?' => $user->getUserId() ) );
+    }
+    
+    public function sqlDeactiveUser(Navo_Model_User $user)
+    {
+    	$data = array('is_actived' => 0);
+    	return $this->update($data, array('user_id = ?' => $user->getUserId() ) );
+    }
+    
+    public function sqlQueryActivedStatus(Navo_Model_User $user)
+    {
+        $rst = $this->sqlQueryUser($user->getUserId());
+        return $rst->is_actived;
+    }
+    
+    public function sqlQueryUser($userId)
+    {
+        $where = $this->select()->where('user_id = ?' , $userId);
+        return $this->fetchRow($where);
     }
 
 }
