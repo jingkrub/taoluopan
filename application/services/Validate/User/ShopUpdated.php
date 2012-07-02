@@ -20,7 +20,7 @@ class Navo_Service_Validate_User_ShopUpdated extends Navo_Service_Validate_Abstr
     public function isValid($user)
     {
         $options = Zend_Registry::get('config');
-        $recheckTimeframe = $options->application->navo->rechecked->timeframe;
+        $recheckTimeframe = $options->navo->rechecked->timeframe;
         
         $shop = new Navo_Model_Shop($user->getUserId());
         if (strtotime($shop->getModified()) > time()-$recheckTimeframe ) {

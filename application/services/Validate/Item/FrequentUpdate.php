@@ -23,7 +23,7 @@ class Navo_Service_Validate_Item_FrequentUpdate extends Navo_Service_Validate_Ab
         $itemhisRowset = $itemHistory->sqlGetLastItemUpdate($item->item_id);
         
         $options = Zend_Registry::get('config');
-        $itemUpdateThreshold = $options->application->navo->item->update->threshold;
+        $itemUpdateThreshold = $options->navo->item->update->threshold;
         
         //FIXME: double check here
         
