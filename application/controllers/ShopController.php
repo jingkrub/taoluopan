@@ -19,14 +19,8 @@ class ShopController extends Zend_Controller_Action
         $shop = new Navo_Model_Shop($user->getUserId());
 
         $shopTop = new Navo_Model_Top_Shop();
-        $shopXml = $shopTop->shopGet($user->getName());
-            
-        $data = array();
-        foreach (Navo_Model_Top_Shop::getKeys() as $value) {
-        	$data[$value] = (string) $shopXml->shop->$value;
-        }
-            
-        $shop->setOptions($data);
+        $shopXml = $shopTop->shopGet($user->getName() , $user->getSessionKey());
+        $shop->setOptionsByXml($shopXml);
         $shop->setUserId($user->getUserId());
         $shop->save();
         

@@ -9,6 +9,9 @@ class Navo_Model_Shop
 	protected $_pic_path;
 	protected $_created;
 	protected $_modified;
+	protected $_all_count;
+	protected $_remain_count;
+	protected $_used_count;
 	protected $_updateTimestamp;
 
 	/**
@@ -166,6 +169,40 @@ class Navo_Model_Shop
 	{
 		return $this->_modified;
 	}
+	
+	public function setAllCount($count)
+	{
+		$this->_all_count = (string) $count;
+		return $this;
+	}
+	
+	public function getAllCount()
+	{
+		return $this->_all_count;
+	}
+	
+	public function setRemainCount($count)
+	{
+		$this->_remain_count = (string) $count;
+		return $this;
+	}
+	
+	public function getRemainCount()
+	{
+		return $this->_remain_count;
+	}
+	
+	public function setUsedCount($count)
+	{
+		$this->_used_count = (string) $count;
+		return $this;
+	}
+	
+	public function getUsedCount()
+	{
+		return $this->_used_count;
+	}
+	
 	
 	public function setUpdateTimestamp($updateTimestamp)
 	{

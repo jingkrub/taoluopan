@@ -16,15 +16,13 @@ class Navo_Model_DbTable_Shop extends Zend_Db_Table_Abstract
     public function sqlSave(Navo_Model_Shop $shop)
     {
         $data = array(
-                'user_id' => $shop->getUserId(),
-                'sid' => $shop->getSid(),
-                'cid' => $shop->getCid(),
-                'title' => $shop->getTitle(),
-                'pic_path' => $shop->getPicPath(),
-                'created' => $shop->getCreated(),
-                'modified' => $shop->getModified(),
-                'update_timestamp' => null,
+        		'user_id' => $shop->getUserId(),
+        		'update_timestamp' => null,
         );
+        
+		foreach (Navo_Model_Top_Shop::getKeys() as $key) {
+			$data[$key] = $shop->__get(Navo_Service_NamingConvention::flatToCamel($key));
+		}
         
     	if (false == $this->sqlUserHasShop( $shop->getUserId() ) )
     	{
