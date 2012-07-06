@@ -67,9 +67,20 @@ class NavoController extends Zend_Controller_Action
         if ($itemValidatorChain->isValid($itemRow)) {
         	//TODO: contune;
         } 
-        
-        
-        
+    }
+    
+    public function onShelfAction()
+    {
+    
+    }
+    
+    public function showcaseAction()
+    {
+    
+    }
+    public function advancedAction()
+    {
+    
     }
 
 
