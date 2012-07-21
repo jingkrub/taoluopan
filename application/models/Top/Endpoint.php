@@ -9,7 +9,10 @@ class Navo_Model_Top_Endpoint
 	
 	private function __construct()
     {
+         
+          
         $options = Zend_Registry::get('config');
+        self::$endpointOptions = new stdClass();
         self::$endpointOptions->router = $options->taobao->api->router->url;
         self::$endpointOptions->oauth = $options->taobao->api->oauth->url;
         self::$endpointOptions->appKey = $options->taobao->api->appKey;

@@ -1,0 +1,35 @@
+<?php echo $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>NAVO - 搜索优化专家</title>
+    <?php echo $this->headLink()->appendStylesheet('/css/global.css') ?>
+  </head>
+  <body>
+    <div id="topbar">
+      <div class="wrap">
+        <div id="toplogo">
+          <img src="/images/global/toplogo.png" alt="NAVO" />
+        </div>
+        <div id="user_info">
+          <span class="username"><a href="">jing_krub</a></span> <span><a href="">退出</a></span>
+        </div>
+        <ul id="topnav">
+          <li class="first"></li>
+          <li class="menu_item"><a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index'), 'default', true) ?>">概览</a></li>
+          <li class="menu_item"><a href="<?php echo $this->url(array('controller' => 'navo', 'action' => 'on-shelf'), 'default', true) ?>">陈列方法</a></li>
+          <li class="menu_item"><a href="<?php echo $this->url(array('controller' => 'navo', 'action' => 'advanced'), 'default', true) ?>">高级设定</a></li>
+          <li class="menu_item"><a href="<?php echo $this->url(array('controller' => 'navo', 'action' => 'showcase'), 'default', true) ?>">橱窗优化</a></li>
+          <li class="last"></li>
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="wrap">
+        <div id="content">
+          <?php echo $this->layout()->content ?>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

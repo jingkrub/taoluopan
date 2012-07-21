@@ -9,7 +9,7 @@ defined('APPLICATION_ENV')
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../../ZendFramework-1.11.11-minimal/library'),
+    realpath(APPLICATION_PATH . '/../library/ZendFramework-1.11.12/library'),
     get_include_path(),
 )));
 
@@ -21,5 +21,6 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
+ob_start();
 $application->bootstrap()
             ->run();
