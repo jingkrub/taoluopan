@@ -17,7 +17,7 @@ class NavoController extends Zend_Controller_Action
         $user = Navo_Service_Authentication::getUser();
         
        //获取user的所有 item
-       
+
        $item = new Navo_Model_DbTable_Item();
        $itemRowset = $item->sqlGetAllItemByUser( $user->getId() );
        
