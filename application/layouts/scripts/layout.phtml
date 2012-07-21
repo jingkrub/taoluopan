@@ -1,0 +1,77 @@
+<?php echo $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>NAVO - 搜索优化专家</title>
+    <?php echo $this->headLink()->appendStylesheet('/css/global.css') ?>
+  </head>
+  <body>
+    <div id="topbar">
+      <div class="wrap">
+        <div id="toplogo">
+          <img src="/images/global/toplogo.png" alt="NAVO" />
+        </div>
+        <ul id="topnav">
+          <li class="menu_item active"><a>店铺分析</a></li>
+          <li class="menu_item"><a>优化设置</a></li>
+          <li class="menu_item"><a>我的账户</a></li>
+          <li class="menu_item"><a>帮助中心</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="wrap">
+        <div id="leftcol">
+          <div id="shop_info" class="block">
+
+          </div>
+          <ul id="leftnav" class="block">
+              <li class="top_li first">
+                <h3>店铺分析</h3>
+                <ul class="sub_ul">
+                  <li class="active"><a href="" >子项目 1</a></li>
+                  <li><a href="" >子项目 2</a></li>
+                  <li><a href="" >子项目 3</a></li>
+                </ul>
+              </li>
+            <li class="top_li">
+                <h3>商品分析</h3>
+                <ul class="sub_ul">
+                  <li><a href="" >商品生命</a></li>
+                  <li><a href="" >子项目 2</a></li>
+                  <li><a href="" >子项目 3</a></li>
+                </ul>
+              </li>
+            <li class="top_li">
+                <h3>评价分析</h3>
+                <ul class="sub_ul">
+                  <li><a href="" >子项目 1</a></li>
+                  <li><a href="" >子项目 2</a></li>
+                  <li><a href="" >子项目 3</a></li>
+                </ul>
+              </li>
+            <li class="top_li">
+                <h3>标题</h3>
+                <ul class="sub_ul">
+                  <li><a href="" >子项目 1</a></li>
+                  <li><a href="" >子项目 2</a></li>
+                  <li><a href="" >子项目 3</a></li>
+                </ul>
+              </li>
+            <li class="top_li">
+                <h3>标题</h3>
+                <ul class="sub_ul">
+                  <li><a href="" >子项目 1</a></li>
+                  <li><a href="" >子项目 2</a></li>
+                  <li><a href="" >子项目 3</a></li>
+                </ul>
+              </li>
+          </ul>
+        </div>
+        <div id="content">
+          <?php echo $this->layout()->content ?>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

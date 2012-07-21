@@ -1,0 +1,160 @@
+/* GLOBAL TAG RULES */
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #666;
+  background: #e5e5e5;
+  color: #333;
+  font-family: sans-serif;
+  font-size: 13px;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  color: #69c;
+  text-decoration: none;
+}
+a:visited {
+  color: #8f9ea9;
+}
+h2 {
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+dt {
+  color: #69c;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 18px;
+}
+dd {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* GLOBAL CLASS RULES */
+div.wrap {
+  margin: 0 auto;
+  width: 950px;
+}
+.cb {
+  clear: both;
+}
+
+/* GLOBAL TEMPLATE */
+div#topbar {
+  background: url('/images/global/topbar.png');
+  height: 38px;
+  /*  line-height: 20px;*/
+  margin-bottom: 30px;
+}
+div#toplogo {
+  float: left;
+  margin-top: 4px;
+  margin-right: 20px;
+}
+div#user_info {
+  float: left;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  /*  line-height: 33px;*/
+  margin-top:15px;
+}
+ul#topnav {
+  float: right;
+  margin-top: 1px;
+}
+ul#topnav li {
+/*  color: #bbb;*/
+  float: left;
+  font-size: 13px;
+  height: 32px;
+  text-align: center;
+}
+ul#topnav li.first {
+  border-right: 1px solid #222;
+}
+ul#topnav li.last {
+  border-left: 1px solid #555;
+}
+ul#topnav li.menu_item {
+  border-left: 1px solid #555;
+  border-right: 1px solid #222;
+  width: 90px;
+}
+ul#topnav li.menu_item a {
+/*  color: #999;*/
+  cursor: default;
+  display: block;
+  font-weight: bold;
+  height: 32px;
+  line-height: 32px;
+}
+ul#topnav li.menu_item a:hover {
+  color: #ddd;
+}
+ul#topnav li.menu_item a:active {
+  background: #333;
+}
+div#content {
+  /*  background: #fff;*/
+  min-height: 550px;
+  /*  margin-top: -20px;*/
+}
+div#leftcol {
+  background: #fcfcfc;
+  border: 1px solid #d0d0d0;
+  float: left;
+  min-height: 350px;
+  padding: 20px;
+  width: 698px;
+}
+div#leftcol div.info {
+  border-bottom: 1px solid #d0d0d0;
+  padding-bottom: 10px;
+}
+div#rightcol {
+  background: #3f3f3f;
+  background: #fcfcfc;
+  border: 1px solid #d0d0d0;
+  float: right;
+  padding: 20px;
+  width: 160px;
+
+}
+div#rightcol dd {
+  color: #555;
+  margin-bottom: 6px;
+  /*  color: #333;*/
+}
+div.info {
+  padding: 20px;
+}
+div.info dl {
+  float: left;
+  width: 130px;
+}
+div.info dt {
+  color: #999;
+  font-size: 12px;
+  font-weight: normal;
+}
+div.info dd {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 38px;
+}
+div.info dd span.percent {
+  font-size: 16px;
+  font-weight: normal;
+  margin-left: 3px;
+}
+div.stats {
+  padding: 20px;
+}
+div.settings {
+  padding: 20px;
+}
